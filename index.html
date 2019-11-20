@@ -11,6 +11,7 @@
     <!-- <div class="bio"></div>
     <script src="index.js"></script> -->
     <script>
+      //datos para hacer la grafica
       const dataset = [
         [34, 78],
         [109, 280],
@@ -23,27 +24,30 @@
         [78, 320],
         [21, 123]
       ];
-
+      //tamaño del elemento svg
       const w = 500;
       const h = 500;
       const padding = 60;
 
+      //limites de la linias dónde se mide las escalas en eje x
       const xScale = d3
         .scaleLinear()
         .domain([0, d3.max(dataset, d => d[0])])
         .range([padding, w - padding]);
 
+      //limites de la linias dónde se mide las escalas en eje y
       const yScale = d3
         .scaleLinear()
         .domain([0, d3.max(dataset, d => d[1])])
         .range([h - padding, padding]);
-
+      //se añade un svg al body de la página
       const svg = d3
         .select("body")
         .append("svg")
         .attr("width", w)
         .attr("height", h);
 
+      //se añade un circulo al svg de la página
       svg
         .selectAll("circle")
         .data(dataset)
@@ -53,6 +57,7 @@
         .attr("cy", d => yScale(d[1]))
         .attr("r", d => 5);
 
+      //se añade texto que pinta los datos en texto en cada punto
       svg
         .selectAll("text")
         .data(dataset)
@@ -62,15 +67,18 @@
         .attr("x", d => xScale(d[0] + 10))
         .attr("y", d => yScale(d[1]));
 
+      //linea de abajo que mide los datos en X
       const xAxis = d3.axisBottom(xScale);
       // Add your code below this line
+      //Linia de abajo que mide los datos Y
       const yAxis = d3.axisLeft(yScale);
       // Add your code above this line
-
+      //Hace la linia que apunta a cada dato en el eje x
       svg
         .append("g")
         .call(xAxis)
         .attr("transform", "translate(0," + (h - padding) + ")");
+      //Hace la linia que apunta a cada dato en el eje x
       svg
         .append("g")
         .call(yAxis)
