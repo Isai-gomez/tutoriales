@@ -11,10 +11,25 @@
       document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("getMessage").onclick = () => {
           // Add your code below this line
-          console.log(
-            (document.getElementsByClassName("message")[0].textContent =
-              "Here is the message")
-          );
+          //solucion con fetch
+          fetch("/json/cats.json")
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById(message).innerHTML = JSON.stringify(data);
+            });
+          //   req = new XMLHttpRequest();
+          //   req.open("GET", "/json/cats.json", true);
+          //   req.send();
+          //   req.onload = function() {
+          //     json = JSON.parse(req.responseText);
+          //     document.getElementsByClassName(
+          //       "message"
+          //     )[0].innerHTML = JSON.stringify(json);
+          //   };
+          //   console.log(
+          //     (document.getElementsByClassName("message")[0].textContent =
+          //       "Here is the message")
+          //   );
           // Add your code above this line
         };
       });
@@ -46,7 +61,7 @@
       }
     </style>
     <h1>Cat Photo Finder</h1>
-    <p class="message box">
+    <p id="message" class="box">
       The message will go here
     </p>
     <p>
